@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Developer Roadmap</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f9f9f7;color:#1a1a18;font-size:14px;padding:1.25rem}
+h1{font-size:19px;font-weight:500;margin-bottom:.2rem}
+.sub{font-size:12px;color:#5f5e5a;margin-bottom:1rem}
+.ov-lbl{font-size:11px;color:#5f5e5a;display:flex;justify-content:space-between;margin-bottom:.3rem}
+.ov-bar{height:5px;background:#e8e6df;border-radius:3px;overflow:hidden;margin-bottom:.85rem}
+.ov-fill{height:100%;background:linear-gradient(90deg,#1D9E75,#534AB7);border-radius:3px;transition:width .4s}
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.85rem}
+.fil{padding:4px 10px;border:1px solid #d3d1c7;border-radius:14px;background:transparent;color:#5f5e5a;cursor:pointer;font-size:11px;transition:all .15s}
+.fil.on{background:#f1efe8;color:#1a1a18;border-color:#888780;font-weight:500}
+.mods{display:flex;flex-direction:column;gap:6px}
+.mod{border:1px solid #d3d1c7;border-radius:10px;overflow:hidden}
+.mod.open{border-color:#888780}
+.mod.m0{border-color:#1D9E75;background:#f0faf6}
+.mod.m0 .mhd{background:#e3f5ed}
+.mod.m0 .mhd:hover{background:#d4eede}
+.mhd{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;user-select:none;background:#f1efe8;transition:background .12s}
+.mhd:hover{background:#e8e6df}
+.mnum{font-size:10px;font-weight:600;min-width:22px;color:#888780}
+.mod.m0 .mnum{color:#1D9E75}
+.mtitle{flex:1;font-size:13px;font-weight:500}
+.mcat{font-size:10px;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.c-pre{background:#E1F5EE;color:#085041;border:1px solid #A3DCCA}
+.c-found{background:#E1F5EE;color:#085041}
+.c-arch{background:#EEEDFE;color:#3C3489}
+.c-fe{background:#E6F1FB;color:#0C447C}
+.c-db{background:#FAEEDA;color:#633806}
+.c-sec{background:#FCEBEB;color:#A32D2D}
+.c-ops{background:#EAF3DE;color:#27500A}
+.c-ai{background:#FAC775;color:#412402}
+.c-bon{background:#F1EFE8;color:#444441}
+.mprg{font-size:10px;color:#888780;white-space:nowrap;margin-right:2px}
+.marr{font-size:10px;color:#888780;transition:transform .2s;display:inline-block}
+.mod.open .marr{transform:rotate(180deg)}
+.mbody{display:none;padding:12px;border-top:1px solid #e8e6df;background:#fff}
+.mod.open .mbody{display:block}
+.mod.m0 .mbody{background:#f9fefc}
+.dep-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+.dlbl{font-size:10px;color:#888780;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.chip-pre{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:500;background:#FCEBEB;color:#A32D2D;border:1px solid #F09595}
+.chip-rel{font-size:10px;padding:2px 8px;border-radius:5px;font-weight:500;background:#E1F5EE;color:#085041;border:1px solid #5DCAA5}
+.pbar{height:3px;background:#e8e6df;border-radius:2px;overflow:hidden;margin-bottom:9px}
+.pfill{height:100%;border-radius:2px;transition:width .3s}
+.plbl{font-size:10px;color:#888780;margin-bottom:.3rem}
+.proj-box{border:1px solid #EF9F27;border-radius:8px;padding:9px 12px;margin-bottom:9px;background:#fdfaf3}
+.proj-box h4{font-size:11px;font-weight:500;color:#854F0B;text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.proj-box p{font-size:12px;color:#3a3a37;line-height:1.55}
+.proj-stack{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.stag{font-size:10px;padding:1px 6px;border-radius:4px;background:#f1efe8;border:1px solid #d3d1c7;color:#5f5e5a}
+.sec{margin-bottom:10px}
+.stitle{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:#888780;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.sdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.item{display:flex;align-items:flex-start;gap:8px;padding:6px 9px;border-radius:7px;cursor:pointer;transition:background .1s;user-select:none}
+.item:hover{background:#f1efe8}
+.item.done{opacity:.45}
+.cb{width:14px;height:14px;border:1.5px solid #b4b2a9;border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:9px;background:#fff}
+.item.done .cb{background:#d4edda;border-color:#5DCAA5;color:#085041}
+.ilbl{font-size:12px;font-weight:500;line-height:1.4;color:#1a1a18}
+.item.done .ilbl{text-decoration:line-through;color:#888780}
+.inote{font-size:11px;color:#5f5e5a;margin-top:1px;line-height:1.45}
+.res-block{background:#f5f4f0;border-radius:8px;padding:10px 13px;margin-bottom:7px}
+.res-block h4{font-size:10px;font-weight:500;color:#888780;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.res-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid #e8e6df;font-size:12px}
+.res-row:last-child{border-bottom:none}
+.res-name{flex:1;line-height:1.4}
+.res-sub{font-size:10px;color:#888780}
+.free{color:#085041;font-weight:500;font-size:10px;white-space:nowrap}
+.paid{color:#633806;font-weight:500;font-size:10px;white-space:nowrap}
+.course-badge{font-size:10px;padding:1px 7px;border-radius:4px;margin-left:4px;font-weight:500;white-space:nowrap}
+.cb-rs{background:#E1F5EE;color:#085041}
+.cb-ud{background:#FAEEDA;color:#633806}
+.cb-ai{background:#FAC775;color:#412402}
+.ai-row{border:1px solid #EF9F27;border-radius:7px;padding:7px 10px;margin-bottom:7px;background:#fdfaf3}
+.ai-row span{font-size:10px;font-weight:500;color:#854F0B;display:block;margin-bottom:2px}
+.ai-row p{font-size:11px;color:#5f5e5a;line-height:1.5}
+</style>
+</head>
+<body>
+<h1>Senior Developer Roadmap</h1>
+<p class="sub">20 modules · Start with Rocketseat → Foundation → Architecture → AI → Front-End → Security → DevOps · Progress saved in browser</p>
+<div class="ov-lbl"><span id="ov-l">0 of 0 items complete</span><span id="ov-p">0%</span></div>
+<div class="ov-bar"><div class="ov-fill" id="ov-f" style="width:0%"></div></div>
+<div class="filters" id="fil"></div>
+<div class="mods" id="mods"></div>
+
+<script>
+const KEY='roadmap_v3';
+let ck={};
+try{const s=localStorage.getItem(KEY);if(s)ck=JSON.parse(s);}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ck));}catch(e){}}
+
+const CATS=['All','Start Here','Foundation','Architecture','Front-End','Database','Security','DevOps','AI','Bonus'];
+const CC={'Start Here':'c-pre',Foundation:'c-found',Architecture:'c-arch','Front-End':'c-fe',Database:'c-db',Security:'c-sec',DevOps:'c-ops',AI:'c-ai',Bonus:'c-bon'};
+const COL={'Start Here':'#1D9E75',Foundation:'#1D9E75',Architecture:'#534AB7','Front-End':'#185FA5',Database:'#BA7517',Security:'#E24B4A',DevOps:'#3B6D11',AI:'#EF9F27',Bonus:'#888780'};
+
+const M=[
+{n:'00',t:'Start Here: Rocketseat SOLID + DDD',cat:'Start Here',m0:true,
+pre:[],rel:['Clean Architecture','Design Patterns','Node.js'],
+proj:{desc:'At the end of each Rocketseat module, pick one concept (a SOLID principle or a DDD tactical pattern) and re-implement it from scratch without looking at the course code. Write a README explaining the decision. This becomes the first entry in your GitHub.',stack:['Node.js','TypeScript','Rocketseat']},
+ai:'SOLID + DDD are the foundation for writing testable, decoupled AI pipelines. Clean domain = clean AI integration.',
+secs:[
+{t:'Rocketseat — SOLID module',dot:'#1D9E75',i:[
+{id:'rs1',l:'Single Responsibility — one reason to change',n:'One stakeholder per class. Re-implement one class from the course from memory.'},
+{id:'rs2',l:'Open/Closed — extend without modifying',n:'Add a new behaviour without touching existing code. Interfaces.'},
+{id:'rs3',l:'Liskov Substitution — subtypes honour contracts',n:'If a subclass breaks expected behaviour, the design is wrong.'},
+{id:'rs4',l:'Interface Segregation — small focused interfaces',n:'Clients should not depend on interfaces they do not use.'},
+{id:'rs5',l:'Dependency Inversion — depend on abstractions',n:'The foundation of Clean Architecture and DI containers.'}
+]},
+{t:'Rocketseat — DDD module',dot:'#534AB7',i:[
+{id:'rs6',l:'Ubiquitous Language: shared language with the business',n:'Code and business use the same terms. No translation layer.'},
+{id:'rs7',l:'Bounded Contexts: explicit domain boundaries',n:'"User" means something different in Auth vs Billing vs Shipping.'},
+{id:'rs8',l:'Entities and Value Objects — identity vs value',n:'Entity has identity (User with id). Value Object is immutable (Email, Money).'},
+{id:'rs9',l:'Aggregates and Aggregate Roots',n:'Transactional boundary. Only the root is accessible from outside.'},
+{id:'rs10',l:'Domain Events: something important happened',n:'OrderPlaced, UserRegistered. Emitted when state changes.'},
+{id:'rs11',l:'Repositories — interface in domain, impl in infra',n:'Domain defines the contract. PostgreSQL is an infrastructure detail.'},
+{id:'rs12',l:'Domain Services — logic that belongs to no entity',n:'TransferService operates across two accounts. No own state.'}
+]},
+{t:'After Rocketseat — bridge to the roadmap',dot:'#BA7517',i:[
+{id:'rs13',l:'Re-implement one full Use Case with Clean Architecture layers',n:'Domain / Application / Infrastructure / Interface from scratch. No tutorial.'},
+{id:'rs14',l:'Identify which modules in this roadmap the Rocketseat content covers',n:'SOLID → Module 06. DDD → Module 09. Revisit those modules and mark items you already know.'},
+{id:'rs15',l:'Commit everything to GitHub with a clear README',n:'Your first portfolio item. Document the architectural decisions.'}
+]}
+],
+resources:[
+{cat:'Rocketseat courses (already enrolled)',items:[
+{name:'Rocketseat — SOLID no Node.js',badge:'rs',f:true,n:'Do this first'},
+{name:'Rocketseat — DDD no Node.js',badge:'rs',f:true,n:'Do second, directly after SOLID'}
+]},
+{cat:'Companion reading (free)',items:[
+{name:'khalilstemmler.com — SOLID series in TypeScript',badge:null,f:true,n:'Read alongside the Rocketseat modules'},
+{name:'khalilstemmler.com — DDD with TypeScript series',badge:null,f:true,n:'Deepens every DDD concept from the course'},
+{name:'rmanguinho/clean-ts-api (GitHub)',badge:null,f:true,n:'Public repo of the Mango course — study the structure'}
+]}
+]},
+{n:'01',t:'Docker & Containers',cat:'Foundation',
+pre:[],rel:['Linux CLI','TCP/IP basics'],
+proj:{desc:'Take any Node.js HTTP server and write a multi-stage Dockerfile. Add docker-compose with the app + PostgreSQL. Pass a --build-arg for NODE_ENV. Verify the image runs identically on another machine.',stack:['Docker','docker-compose','Node.js','PostgreSQL']},
+ai:'Containerise LLM inference services. Reproducible AI dev environments with GPU support.',
+secs:[
+{t:'Core concepts',dot:'#1D9E75',i:[
+{id:'dc1',l:'Containers vs VMs: namespaces & cgroups',n:'What isolation actually means under the hood.'},
+{id:'dc2',l:'Core CLI: run, ps, stop, rm, images, pull, exec',n:'Drive Docker entirely from the terminal.'},
+{id:'dc3',l:'Dockerfile: FROM, RUN, COPY, WORKDIR, EXPOSE, CMD',n:'Every instruction creates a layer. Order matters for cache.'},
+{id:'dc4',l:'Multi-stage builds',n:'Separate build-time deps from the final image. Smaller and safer.'},
+{id:'dc5',l:'Volumes: named vs bind mount',n:'Data that outlives the container.'}
+]},
+{t:'Compose & Networking',dot:'#534AB7',i:[
+{id:'dc6',l:'docker-compose: services, networks, volumes',n:'Orchestrate a local dev stack in one YAML file.'},
+{id:'dc7',l:'Container networking: bridge, host, overlay',n:'How containers discover and talk to each other.'},
+{id:'dc8',l:'Environment variables & .env files',n:'No hardcoded secrets in the Dockerfile, ever.'},
+{id:'dc9',l:'Health checks & restart policies',n:'Kubernetes expects these. Start writing them now.'}
+]},
+{t:'Registry & Production',dot:'#BA7517',i:[
+{id:'dc10',l:'Docker Hub, ECR, GHCR: pushing & tagging',n:'Version and distribute your images.'},
+{id:'dc11',l:'Image optimisation: Alpine, .dockerignore, non-root user',n:'Reduce attack surface and image size.'},
+{id:'dc12',l:'Build & push in GitHub Actions',n:'Automate image publishing on every merge to main.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'TechWorld with Nana — Docker (YouTube)',badge:null,f:true,n:'Best free Docker course. ~4h code-along.'},
+{name:'Docker official docs — Getting Started',badge:null,f:true,n:''}
+]}]},
+{n:'02',t:'Node.js & Go',cat:'Foundation',
+pre:['Docker & Containers'],rel:['APIs','SQL','Architecture'],
+proj:{desc:'Build the same URL shortener API twice: Node.js with Fastify + TypeScript, then Go with net/http. Compare DX, binary size, and cold-start time. No database yet — focus on the language feel.',stack:['Node.js','Fastify','TypeScript','Go','net/http']},
+ai:'Node.js + Vercel AI SDK for AI-powered apps. Go for high-performance inference microservices.',
+secs:[
+{t:'Node.js advanced (Event Loop + Streams)',dot:'#1D9E75',i:[
+{id:'nd1',l:'Event loop deep dive: phases, timers, I/O callbacks',n:'setImmediate vs nextTick. How to avoid blocking the loop.'},
+{id:'nd2',l:'Streams & backpressure',n:'Process large payloads without blowing memory. Foundation of LLM streaming.'},
+{id:'nd3',l:'Worker threads: real CPU parallelism',n:'When async is not enough and you need true multi-threading.'},
+{id:'nd4',l:'Clustering: utilise all CPU cores',n:'cluster module. PM2. When to use cluster vs worker threads.'},
+{id:'nd5',l:'Fastify in depth: plugins, hooks, schema validation',n:'Lifecycle hooks, decorators, plugin system.'},
+{id:'nd6',l:'TypeScript advanced: generics, utility types, decorators',n:'Infer, conditional types, mapped types.'},
+{id:'nd7',l:'Memory management & leak detection',n:'Heap snapshots, flamegraphs, --inspect with Chrome DevTools.'}
+]},
+{t:'Go — when & how',dot:'#534AB7',i:[
+{id:'go1',l:'Why Go: goroutines, channels & concurrency model',n:'M:N threading. Native concurrency without callback hell.'},
+{id:'go2',l:'Go vs Node.js — decision framework',n:'Go for CPU-bound, high concurrency, CLIs. Node for I/O-bound, AI apps.'},
+{id:'go3',l:'Project structure, packages & go.mod',n:'Conventions, workspace, dependency management.'},
+{id:'go4',l:'HTTP with net/http, Gin & Echo',n:'Standard library is powerful. Gin for productivity.'},
+{id:'go5',l:'Goroutines, channels & context.Context',n:'go func(), select, sync.WaitGroup, cancellation patterns.'},
+{id:'go6',l:'Go for CLIs and automation tools',n:'Cobra library. Single binary deploys with zero runtime.'}
+]}
+],
+resources:[{cat:'Udemy — Grider: Node JS Advanced Concepts (owned)',items:[
+{name:'Section: Event Loop deep dive',badge:'ud',f:true,n:'Do this section only — still the best visual explanation'},
+{name:'Section: Worker Threads & Clustering',badge:'ud',f:true,n:'Do this section — directly relevant'},
+{name:'Section: AWS S3 image upload',badge:'ud',f:true,n:'Presigned URLs pattern is timeless — worth doing'},
+{name:'Section: CI pipeline (Travis CI)',badge:'ud',f:false,n:'SKIP — outdated. Use GitHub Actions docs instead'}
+]},{cat:'Free',items:[
+{name:'Fastify docs — Getting Started',badge:null,f:true,n:''},
+{name:'Go Tour — tour.golang.org',badge:null,f:true,n:'Official interactive Go tutorial'}
+]}]},
+{n:'03',t:'SQL & Relational Databases',cat:'Database',
+pre:['Docker & Containers'],rel:['APIs','Architecture','Node.js'],
+proj:{desc:'Design an e-commerce schema. Write raw SQL for complex JOINs, aggregations, a CTE report, and an EXPLAIN ANALYSE to fix a slow query. Add pgvector for product embeddings. No ORM.',stack:['PostgreSQL','pgvector','SQL','Docker']},
+ai:'pgvector for embeddings. SQL as a RAG knowledge source. Structured data grounding for LLMs.',
+secs:[
+{t:'SQL fundamentals',dot:'#1D9E75',i:[
+{id:'sq1',l:'DDL: CREATE, ALTER, DROP — schema design',n:'Data types, constraints, foreign keys, check constraints.'},
+{id:'sq2',l:'DML: SELECT, INSERT, UPDATE, DELETE',n:'Basic to advanced queries.'},
+{id:'sq3',l:'JOINs: INNER, LEFT, RIGHT, FULL, CROSS, SELF',n:'When to use each. Common misuse patterns.'},
+{id:'sq4',l:'Aggregations: GROUP BY, HAVING, window functions',n:'ROW_NUMBER, RANK, LAG, LEAD.'},
+{id:'sq5',l:'Subqueries and CTEs (WITH)',n:'Readable complex queries. Recursive CTEs for hierarchies.'}
+]},
+{t:'Design & Performance',dot:'#534AB7',i:[
+{id:'sq6',l:'Normalisation: 1NF, 2NF, 3NF — and when to denormalise',n:''},
+{id:'sq7',l:'Indexes: B-Tree, Hash, GIN, GiST — when to create',n:'EXPLAIN ANALYSE to find missing indexes and full scans.'},
+{id:'sq8',l:'Transactions & ACID guarantees',n:'BEGIN, COMMIT, ROLLBACK. Isolation levels.'},
+{id:'sq9',l:'Locks, deadlocks — detection & resolution',n:'Row-level locking.'},
+{id:'sq10',l:'Query optimisation with EXPLAIN',n:'Seq scan vs index scan. Reading execution plans.'}
+]},
+{t:'PostgreSQL advanced',dot:'#BA7517',i:[
+{id:'sq11',l:'JSONB: semi-structured data in Postgres',n:'Queries on JSON fields. GIN indexes for JSONB.'},
+{id:'sq12',l:'pgvector: embeddings & similarity search',n:'Store vectors, cosine similarity, HNSW index for performance.'},
+{id:'sq13',l:'Row-level security for multi-tenancy',n:'RLS policies. Bullet-proof tenant isolation.'},
+{id:'sq14',l:'Connection pooling with PgBouncer',n:'Manage connections at scale.'},
+{id:'sq15',l:'Replication, backup & high availability',n:'Streaming replication, pg_dump, failover.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'PostgreSQL official docs',badge:null,f:true,n:''},
+{name:'pgvector GitHub — docs and Node.js examples',badge:null,f:true,n:''}
+]}]},
+{n:'04',t:'NoSQL Databases',cat:'Database',
+pre:['SQL & Relational Databases'],rel:['Microservices','Event-Driven'],
+proj:{desc:'Build an activity feed: MongoDB stores user posts, Redis stores the ranked feed per user (Sorted Set), Redis Pub/Sub notifies clients of new posts.',stack:['MongoDB','Redis','Node.js','Docker']},
+ai:'Redis for LLM response caching. MongoDB for conversation history.',
+secs:[
+{t:'Types & use cases',dot:'#1D9E75',i:[
+{id:'ns1',l:'Document stores: MongoDB — when schema flexibility wins',n:'Embedding vs referencing.'},
+{id:'ns2',l:'Key-Value: Redis — cache, sessions, pub/sub, queues',n:'The Swiss army knife of backends.'},
+{id:'ns3',l:'Wide-column: Cassandra & DynamoDB',n:'High availability, write-heavy scale.'},
+{id:'ns4',l:'Graph databases: Neo4j basics',n:'Social graphs, recommendation systems.'}
+]},
+{t:'Redis in depth',dot:'#534AB7',i:[
+{id:'ns5',l:'Data structures: String, Hash, List, Set, ZSet',n:'Each has a specific use case.'},
+{id:'ns6',l:'Redis Pub/Sub vs Streams',n:'Pub/Sub for fire-and-forget. Streams for persistent messages.'},
+{id:'ns7',l:'Caching strategies: cache-aside, write-through, TTL',n:'Eviction policies. Cache invalidation.'},
+{id:'ns8',l:'Redis Cluster & persistence: RDB vs AOF',n:'Replication, cluster mode, durability.'}
+]},
+{t:'Decision framework',dot:'#BA7517',i:[
+{id:'ns9',l:'CAP theorem in practice',n:'Consistency vs Availability vs Partition tolerance.'},
+{id:'ns10',l:'Polyglot persistence: multiple databases per system',n:'Each service uses the best database for its domain.'},
+{id:'ns11',l:'SQL vs NoSQL — rational decision',n:'Data shape, query patterns, consistency requirements.'}
+]}
+],
+resources:[{cat:'Udemy — Grider: Node JS Advanced Concepts (owned)',items:[
+{name:'Section: Redis caching — cache-aside with Node.js',badge:'ud',f:true,n:'Redis client is dated but the caching logic is still correct'}
+]},{cat:'Free',items:[
+{name:'Redis University — free courses',badge:null,f:true,n:'RU101 Introduction is solid'}
+]}]},
+{n:'05',t:'APIs: REST, gRPC, GraphQL & Gateway',cat:'Foundation',
+pre:['Node.js & Go','SQL','Docker'],rel:['Security','Microservices'],
+proj:{desc:'Expose the same product catalogue three ways: REST with OpenAPI, gRPC with Protocol Buffers, and GraphQL with DataLoader. Add an Nginx API Gateway routing by path prefix.',stack:['Node.js','Fastify','gRPC','GraphQL','Nginx','OpenAPI']},
+ai:'Streaming LLM responses via SSE. Function calling via structured REST. gRPC for internal AI service calls.',
+secs:[
+{t:'REST & API design',dot:'#1D9E75',i:[
+{id:'ap1',l:'REST principles: resources, verbs, status codes',n:'Idempotency, stateless, uniform interface.'},
+{id:'ap2',l:'API versioning strategies',n:'URL vs Header vs Query. Never break existing clients.'},
+{id:'ap3',l:'Pagination: cursor-based vs offset',n:'Cursor for real-time feeds. Offset for static datasets.'},
+{id:'ap4',l:'OpenAPI/Swagger: documentation as code',n:'Generate docs, mocks and clients from a single schema.'},
+{id:'ap5',l:'Rate limiting algorithms',n:'Fixed window, sliding window, token bucket.'}
+]},
+{t:'gRPC & GraphQL',dot:'#534AB7',i:[
+{id:'ap6',l:'Protocol Buffers: typed contracts',n:'Binary serialisation, code generation.'},
+{id:'ap7',l:'gRPC: unary, server streaming, client streaming, bidi',n:'Four communication patterns.'},
+{id:'ap8',l:'gRPC vs REST: the honest trade-off',n:'gRPC for internal services. REST for public APIs.'},
+{id:'ap9',l:'GraphQL: schema, resolvers, DataLoader (N+1)',n:'Client requests exactly what it needs.'},
+{id:'ap10',l:'GraphQL subscriptions for real-time',n:'WebSocket-based push.'}
+]},
+{t:'API Gateway',dot:'#BA7517',i:[
+{id:'ap11',l:'Responsibilities: routing, auth, rate limiting, logging',n:'Single entry point. Decouples clients from internal services.'},
+{id:'ap12',l:'Kong, AWS API Gateway, or Nginx',n:'Open source vs managed.'},
+{id:'ap13',l:'Circuit breaker pattern in the gateway',n:'Fail fast when a downstream service is unavailable.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'OpenAPI spec — official docs',badge:null,f:true,n:''},
+{name:'GraphQL official docs',badge:null,f:true,n:''}
+]}]},
+{n:'06',t:'SOLID & Design Patterns',cat:'Architecture',
+pre:['Node.js & Go (basics)','OOP basics'],rel:['Clean Architecture','DDD','TDD'],
+proj:{desc:'Build a payment processing module: Strategy for swappable providers, Factory to instantiate the correct one, Repository to persist transactions, Observer to emit PaymentCompleted domain events, Decorator to add logging and retry without touching core logic.',stack:['Node.js','TypeScript']},
+ai:'Strategy pattern to swap LLM providers. Observer for domain events that trigger AI pipelines.',
+secs:[
+{t:'SOLID (builds on Rocketseat module)',dot:'#1D9E75',i:[
+{id:'so1',l:'S — Single Responsibility: one reason to change',n:'Already covered in Rocketseat. Reinforce with a new practical example.'},
+{id:'so2',l:'O — Open/Closed: extend without modification',n:'Already covered. Implement with generics in TypeScript.'},
+{id:'so3',l:'L — Liskov Substitution: honour parent contracts',n:'Already covered. Find a real violation in open-source code.'},
+{id:'so4',l:'I — Interface Segregation: small focused interfaces',n:'Already covered. Refactor a fat interface you wrote.'},
+{id:'so5',l:'D — Dependency Inversion: depend on abstractions',n:'Already covered. Wire manually before using a DI container.'}
+]},
+{t:'Creational patterns',dot:'#534AB7',i:[
+{id:'dp1',l:'Factory Method & Abstract Factory',n:'Create objects without exposing instantiation logic.'},
+{id:'dp2',l:'Builder: step-by-step complex object construction',n:'Fluent interface. Objects always in valid state.'},
+{id:'dp3',l:'Singleton: controlled single instance',n:'Use sparingly. Prefer Dependency Injection.'}
+]},
+{t:'Structural patterns',dot:'#BA7517',i:[
+{id:'dp4',l:'Adapter: make incompatible interfaces work',n:'The Anti-Corruption Layer in DDD is an Adapter.'},
+{id:'dp5',l:'Decorator: add behaviour dynamically',n:'Express/Fastify middleware is a Decorator.'},
+{id:'dp6',l:'Facade: simplified interface to a subsystem',n:'SDKs are facades.'},
+{id:'dp7',l:'Proxy: control access to another object',n:'Lazy loading, caching, logging.'}
+]},
+{t:'Behavioural patterns',dot:'#D85A30',i:[
+{id:'dp8',l:'Strategy: swappable algorithms at runtime',n:'Payment providers, AI model selection.'},
+{id:'dp9',l:'Observer: event notification on state change',n:'Event emitters. Foundation of Domain Events.'},
+{id:'dp10',l:'Command: encapsulate a request as an object',n:'Undo/redo, CQRS commands.'},
+{id:'dp11',l:'Repository: abstract data access',n:'Service does not know a database exists.'},
+{id:'dp12',l:'Mediator: decouple communication',n:'MediatR pattern.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'khalilstemmler.com — SOLID series in TypeScript',badge:null,f:true,n:'Companion to the Rocketseat module'},
+{name:'Refactoring.guru — Design Patterns',badge:null,f:true,n:'All 23 GoF patterns with TypeScript examples'}
+]}]},
+{n:'07',t:'Testing & TDD',cat:'Architecture',
+pre:['SOLID & Design Patterns','Node.js'],rel:['Clean Architecture','DDD','CI/CD'],
+proj:{desc:'Before writing any implementation, write failing tests for a Checkout use case: apply coupon, calculate totals, validate stock, emit OrderPlaced event. Drive the entire design through tests. Aim for 85%+ domain coverage. Run Stryker mutation testing at the end.',stack:['Vitest','TypeScript','Stryker','Supertest']},
+ai:'Mock LLM responses in unit tests. Evaluate AI output quality with assertion-based evals.',
+secs:[
+{t:'Testing fundamentals',dot:'#1D9E75',i:[
+{id:'tt1',l:'Testing pyramid: unit, integration, E2E',n:'70/20/10 split. Cost vs confidence.'},
+{id:'tt2',l:'Test doubles: mocks, stubs, spies, fakes, dummies',n:'Each has a specific purpose.'},
+{id:'tt3',l:'F.I.R.S.T principles',n:'Fast, Isolated, Repeatable, Self-validating, Timely.'},
+{id:'tt4',l:'Coverage: what to measure, what to ignore',n:'80%+ on domain logic. Not on infrastructure glue.'}
+]},
+{t:'TDD in practice',dot:'#534AB7',i:[
+{id:'tt5',l:'Red-Green-Refactor: the full cycle',n:'Never skip refactor.'},
+{id:'tt6',l:'Outside-In TDD (London school)',n:'Start from the use case and mock inward.'},
+{id:'tt7',l:'Inside-Out TDD (Chicago school)',n:'Start from the domain and build outward.'},
+{id:'tt8',l:'Design emerging from tests',n:'If you cannot write the test easily, the design is wrong.'}
+]},
+{t:'Tools & advanced',dot:'#BA7517',i:[
+{id:'tt9',l:'Vitest for Node.js/TypeScript',n:'Faster than Jest. Compatible API.'},
+{id:'tt10',l:'Supertest: HTTP endpoint testing',n:'Test your API without spinning up a real server.'},
+{id:'tt11',l:'Testcontainers: real database in tests',n:'Ephemeral Docker containers for PostgreSQL, Redis.'},
+{id:'tt12',l:'Playwright for front-end E2E',n:'Cross-browser, trace viewer.'},
+{id:'tt13',l:'Contract testing with Pact',n:'Producer and consumer agree on the API contract.'},
+{id:'tt14',l:'Mutation testing with Stryker',n:'Injects bugs into code and checks if tests catch them.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'Vitest — official docs',badge:null,f:true,n:''},
+{name:'Playwright — official docs',badge:null,f:true,n:''}
+]}]},
+{n:'08',t:'Software Architecture',cat:'Architecture',
+pre:['SOLID & Design Patterns','APIs','Docker'],rel:['DDD','Microservices','TDD'],
+proj:{desc:'Take a standard Express MVC app and refactor into four Clean Architecture layers. At the end, swap Fastify for a CLI entry point without touching a single domain file.',stack:['Node.js','TypeScript','Fastify','Prisma','PostgreSQL']},
+ai:'Clean Architecture for AI: the LLM SDK lives in Infrastructure. Domain has zero dependency on any AI provider.',
+secs:[
+{t:'MVC and its limits',dot:'#888780',i:[
+{id:'ar1',l:'MVC: Model, View, Controller — where it works',n:'Good for simple CRUD. Breaks down when business logic grows.'},
+{id:'ar2',l:'Fat controllers & anemic domain — anti-patterns',n:'Signs that MVC is hurting you.'}
+]},
+{t:'Hexagonal Architecture',dot:'#534AB7',i:[
+{id:'ar3',l:'Ports: contracts the application defines',n:'Input ports (use cases), output ports (repositories).'},
+{id:'ar4',l:'Adapters: pluggable implementations',n:'HTTP adapter, Prisma adapter. All swappable.'},
+{id:'ar5',l:'Swap one adapter without touching business logic',n:'Replace Express with Fastify in one file.'}
+]},
+{t:'Clean Architecture',dot:'#1D9E75',i:[
+{id:'ar6',l:'The four layers: Domain, Application, Infrastructure, Interface',n:'Clear responsibilities. One-way dependency direction.'},
+{id:'ar7',l:'The Dependency Rule — the single law',n:'Source code can only point inward.'},
+{id:'ar8',l:'Use Cases: one class per system operation',n:'No infrastructure logic. No domain logic. Pure orchestration.'},
+{id:'ar9',l:'Screaming Architecture: structure reflects the domain',n:'Folders named after business concepts.'}
+]},
+{t:'Multi-tenancy',dot:'#BA7517',i:[
+{id:'ar10',l:'Strategies: database-per-tenant, schema-per-tenant, shared',n:'Isolation vs cost vs complexity.'},
+{id:'ar11',l:'Tenant context propagation with AsyncLocalStorage',n:'Flows through middleware automatically.'},
+{id:'ar12',l:'Row-level security in PostgreSQL',n:'RLS policies. Bullet-proof tenant isolation.'}
+]}
+],
+resources:[{cat:'Udemy — Pogrebinsky: Software Architecture & Design (wishlist)',items:[
+{name:'Software Architecture & Design of Modern Large Scale Systems',badge:'ud',f:false,n:'Buy during a Udemy sale (~$20 AUD). Do this module concurrently.'},
+{name:'The Complete Microservices & Event-Driven Architecture',badge:'ud',f:false,n:'Companion course — do after this module and Module 09'}
+]},{cat:'Free',items:[
+{name:'khalilstemmler.com — Clean Node.js Architecture',badge:null,f:true,n:''},
+{name:'higorhms/Clean-Architecture (GitHub)',badge:null,f:true,n:'Complete API with DDD + Clean Arch + TDD'}
+]}]},
+{n:'09',t:'DDD, Microservices & Messaging',cat:'Architecture',
+pre:['Clean Architecture','SOLID','APIs','Docker'],rel:['Event-Driven','Kubernetes'],
+proj:{desc:'Build Order and Inventory as two separate Node.js services. Order emits OrderPlaced via RabbitMQ. Inventory listens and reserves stock. Implement the Outbox Pattern on both. No shared database.',stack:['Node.js','TypeScript','RabbitMQ','PostgreSQL','Docker','Clean Architecture']},
+ai:'Bounded contexts for AI: Recommendation is separate from Content. Domain Events trigger AI pipelines without coupling the domain to the AI layer.',
+secs:[
+{t:'DDD Strategic (builds on Rocketseat)',dot:'#1D9E75',i:[
+{id:'dd1',l:'Ubiquitous Language: deepen with a real domain',n:'Already covered in Rocketseat. Apply to a new domain you choose.'},
+{id:'dd2',l:'Bounded Contexts & Context Map',n:'ACL, Shared Kernel, Open Host Service, Conformist.'},
+{id:'dd3',l:'Core vs Supporting vs Generic subdomains',n:'Invest most in the core domain.'}
+]},
+{t:'DDD Tactical (builds on Rocketseat)',dot:'#534AB7',i:[
+{id:'dd4',l:'Entities & Value Objects — deepen with TypeScript',n:'Already covered. Implement immutability patterns.'},
+{id:'dd5',l:'Aggregates & Aggregate Roots — invariants',n:'Already covered. Focus on enforcing business rules.'},
+{id:'dd6',l:'Domain Events — event bus implementation',n:'Already covered. Now implement an actual in-memory event bus.'},
+{id:'dd7',l:'Domain Services vs Application Services',n:'Domain holds business rules. Application orchestrates.'}
+]},
+{t:'Microservices',dot:'#BA7517',i:[
+{id:'ms1',l:'Modular monolith as the prerequisite',n:'Understand bounded contexts before splitting.'},
+{id:'ms2',l:'Decompose by bounded context, not by entity',n:'One microservice = one bounded context.'},
+{id:'ms3',l:'Saga Pattern: distributed transactions',n:'Choreography vs Orchestration.'},
+{id:'ms4',l:'API Gateway & BFF',n:'Gateway for routing. BFF for each client type.'}
+]},
+{t:'Messaging',dot:'#D85A30',i:[
+{id:'mq1',l:'RabbitMQ: exchanges, queues & bindings',n:'Direct, topic, fanout. Ack, nack, DLQ.'},
+{id:'mq2',l:'Apache Kafka: topics, partitions & consumer groups',n:'Distributed log. High throughput. Event replay.'},
+{id:'mq3',l:'Kafka vs RabbitMQ — decision framework',n:'Kafka for event streaming. RabbitMQ for task queues.'},
+{id:'mq4',l:'Outbox Pattern: guaranteed event delivery',n:'Saves event in the same DB transaction.'},
+{id:'mq5',l:'Idempotency: safe duplicate message processing',n:'Essential in any messaging system.'}
+]}
+],
+resources:[{cat:'Rocketseat (already enrolled)',items:[
+{name:'Rocketseat — DDD no Node.js',badge:'rs',f:true,n:'Modules 00 and 09 share this course — it covers DDD tactical in depth'},
+{name:'Rocketseat — Microservices (if available)',badge:'rs',f:true,n:'Check your subscription for microservices content'}
+]},{cat:'Udemy — Grider: Microservices with Node JS and React (owned)',items:[
+{name:'Microservices with Node JS and React — full course',badge:'ud',f:true,n:'Code-along hands-on project. Tech choices (NATS) differ slightly but architecture logic is solid.'},
+{name:'Note: use alongside this module, not before it',badge:null,f:true,n:'Grider gives the code-along; this module gives the theory foundation'}
+]},{cat:'Udemy — Pogrebinsky (wishlist)',items:[
+{name:'The Complete Microservices & Event-Driven Architecture',badge:'ud',f:false,n:'Buy on sale. Complements Grider with deeper architecture theory'}
+]},{cat:'Free',items:[
+{name:'khalilstemmler.com — DDD with TypeScript series',badge:null,f:true,n:'Deepens every DDD concept from Rocketseat'}
+]}]},
+{n:'10',t:'Event-Driven Architecture & CQRS',cat:'Architecture',
+pre:['DDD & Microservices','Kafka or RabbitMQ','SQL'],rel:['Event Sourcing','Kubernetes'],
+proj:{desc:'Implement an Order service with CQRS: write side uses commands that produce Domain Events. Read side maintains a denormalised orders_summary updated by event handlers. Read API response times 10x faster than write.',stack:['Node.js','TypeScript','PostgreSQL','Redis','Kafka']},
+ai:'CQRS for AI pipelines: write side ingests content and triggers embeddings. Read side serves pre-computed recommendation queries.',
+secs:[
+{t:'Event-Driven Architecture',dot:'#534AB7',i:[
+{id:'ev1',l:'Events vs Commands vs Queries',n:'Event = happened. Command = intent. Query = read.'},
+{id:'ev2',l:'Choreography vs Orchestration',n:'Choreography: services react. Orchestration: central coordinator.'},
+{id:'ev3',l:'Event-driven vs request-driven trade-offs',n:'Decoupling vs operational complexity.'},
+{id:'ev4',l:'Dead letter queue & retry with exponential backoff',n:'Failed messages go to DLQ for inspection.'}
+]},
+{t:'CQRS',dot:'#1D9E75',i:[
+{id:'cq1',l:'Command Query Responsibility Segregation',n:'Separate state-changing operations from reads.'},
+{id:'cq2',l:'Write side: commands, handlers, aggregates, events',n:'The pipeline for every state mutation.'},
+{id:'cq3',l:'Read side: denormalised projections for fast queries',n:'No JOINs at query time.'},
+{id:'cq4',l:'Sync write to read via domain events',n:'Event handler updates the read model.'}
+]},
+{t:'Event Sourcing',dot:'#BA7517',i:[
+{id:'es1',l:'State as a sequence of events',n:'Store all events, not current state.'},
+{id:'es2',l:'Event store: EventStoreDB, Kafka, or PostgreSQL',n:'Each with different guarantees.'},
+{id:'es3',l:'Snapshots: performance optimisation',n:'Avoid replaying thousands of events.'},
+{id:'es4',l:'Temporal queries: state at any point in time',n:'Full audit log. Time-travel queries.'}
+]}
+],
+resources:[{cat:'Udemy — Pogrebinsky (wishlist)',items:[
+{name:'The Complete Microservices & Event-Driven Architecture',badge:'ud',f:false,n:'Most relevant for this specific module'}
+]},{cat:'Free',items:[
+{name:'microservices.io — patterns catalogue (Martin Fowler)',badge:null,f:true,n:'CQRS, Outbox, Saga patterns with diagrams'},
+{name:'mehdihadeli/awesome-software-architecture (GitHub)',badge:null,f:true,n:'Curated CQRS + Event Sourcing resources'}
+]}]},
+{n:'11',t:'AI: LLMs, RAG, Agents & Deploy',cat:'AI',
+pre:['APIs','Node.js','Docker','SQL & pgvector'],rel:['Observability','Security','Event-Driven'],
+proj:{desc:'Content analysis platform: accepts user-submitted posts → generates embeddings stored in pgvector → similarity-based recommendation feed → RAG behavioural analysis via LLM → SSE streaming → Langfuse observability → AWS Lambda deploy. This is the portfolio centrepiece.',stack:['Node.js','TypeScript','OpenAI API','pgvector','PostgreSQL','Vercel AI SDK','Langfuse','AWS Lambda']},
+ai:'',
+secs:[
+{t:'LLMs in practice',dot:'#EF9F27',i:[
+{id:'ai1',l:'How LLMs work: tokens, context window, temperature',n:'Not magic. Next probable token. Context window = working memory.'},
+{id:'ai2',l:'Prompt engineering: system, user, assistant roles',n:'Chain-of-thought, few-shot, structured outputs.'},
+{id:'ai3',l:'OpenAI API vs Anthropic API: trade-offs',n:'Models, cost per token, rate limits, tool use.'},
+{id:'ai4',l:'Response streaming: SSE and WebSocket',n:'Send tokens as they arrive.'},
+{id:'ai5',l:'Structured outputs & function calling / tool use',n:'Model returns typed JSON or calls external functions.'}
+]},
+{t:'Embeddings & RAG',dot:'#BA7517',i:[
+{id:'ai6',l:'Embeddings: semantic representation of text',n:'text to N-dimensional vector. Similarity = geometric proximity.'},
+{id:'ai7',l:'pgvector: vector search in PostgreSQL',n:'Cosine similarity, HNSW index.'},
+{id:'ai8',l:'Basic RAG: retrieve → augment → generate',n:'Query → embedding → similarity search → inject context → model responds.'},
+{id:'ai9',l:'Advanced RAG: reranking & hybrid search',n:'BM25 + semantic. Cross-encoder reranking.'},
+{id:'ai10',l:'Chunking strategies for documents',n:'Fixed size, recursive, semantic.'}
+]},
+{t:'Vercel AI SDK',dot:'#534AB7',i:[
+{id:'ai11',l:'useChat & useCompletion in React',n:'Hooks for chat and completion. Streaming built-in.'},
+{id:'ai12',l:'AI SDK Core: generateText & streamText on the server',n:'Node.js without React. Works with any model provider.'},
+{id:'ai13',l:'Tools in the AI SDK: simplified function calling',n:'Define tools in TypeScript. SDK manages the tool use loop.'},
+{id:'ai14',l:'AI SDK with Server Actions in Next.js',n:'Streaming responses in Server Components.'}
+]},
+{t:'Multi-agent systems & workflows',dot:'#D85A30',i:[
+{id:'ai15',l:'Agents: LLM that decides when to use tools',n:'ReAct pattern: Thought → Action → Observation → loop.'},
+{id:'ai16',l:'Multi-agent systems: agents coordinating agents',n:'Supervisor delegates to specialised sub-agents.'},
+{id:'ai17',l:'LangGraph: stateful AI workflows as a graph',n:'Cycles, conditionals, parallel branches.'},
+{id:'ai18',l:'Memory: short-term, long-term & episodic',n:'Conversation buffer, vector memory, summary memory.'}
+]},
+{t:'Deploy & Observability',dot:'#888780',i:[
+{id:'ai19',l:'Langfuse: open-source LLM observability',n:'Prompt traces, cost, latency, quality evaluation.'},
+{id:'ai20',l:'Automated evals: LLM as judge',n:'Test if responses are relevant and correct.'},
+{id:'ai21',l:'Local models with Ollama',n:'Run Llama, Mistral locally.'},
+{id:'ai22',l:'AWS Lambda for serverless AI calls',n:'Scale to zero. Pay per request.'},
+{id:'ai23',l:'Prompt injection: detection & prevention',n:'Sanitise inputs before injecting into prompts.'},
+{id:'ai24',l:'LLM cost control: caching & rate limiting per user',n:'Cache identical responses.'}
+]}
+],
+resources:[{cat:'Ed Donner trilogy — recommended order (wishlist)',items:[
+{name:'① Core Track: LLM Engineering, RAG, QLoRA, Agents',badge:'ai',f:false,n:'8 weeks, 8 projects. Requires Python basics first (~2 weeks prep). Do this module first.'},
+{name:'② Agentic Track: Complete Agent & MCP Course',badge:'ai',f:false,n:'6 weeks, 8 projects. OpenAI SDK, CrewAI, LangGraph, AutoGen, MCP. Do after Core Track.'},
+{name:'③ Production Track: Deploy LLMs & Agents at Scale',badge:'ai',f:false,n:'AWS, Vercel, Next.js frontend. Most aligned with your Node.js stack. Do last.'},
+{name:'Note: all three use Python. Learn Python basics before starting.',badge:null,f:true,n:'Python.org tutorial (~2 weeks) + Google ML Crash Course is enough.'}
+]},{cat:'Free',items:[
+{name:'DeepLearning.ai — LangChain for LLM Dev (auditable)',badge:null,f:true,n:'RAG, embeddings, chains. Free to audit.'},
+{name:'Vercel AI SDK — official docs',badge:null,f:true,n:'Best starting point for Node.js/TypeScript AI dev'},
+{name:'Anthropic Cookbook (GitHub)',badge:null,f:true,n:'Practical RAG and tool use examples'},
+{name:'Langfuse — open source LLM observability',badge:null,f:true,n:''}
+]}]},
+{n:'12',t:'React & Next.js Advanced',cat:'Front-End',
+pre:['JavaScript/TypeScript','APIs REST','Docker'],rel:['Frontend Architecture','Security','AI SDK'],
+proj:{desc:'Next.js 15 App Router dashboard using RSC to fetch data, Server Actions for mutations, streaming AI insights via Vercel AI SDK and Suspense, optimistic updates with TanStack Query. Score 95+ on Lighthouse.',stack:['Next.js','React','TypeScript','Vercel AI SDK','TanStack Query','Tailwind']},
+ai:'Server Components for AI streaming. useChat for copilot UI.',
+secs:[
+{t:'Modern React',dot:'#185FA5',i:[
+{id:'re1',l:'Advanced hooks: useReducer, useContext, useSyncExternalStore',n:'When to use each.'},
+{id:'re2',l:'Custom hooks: extracting reusable logic',n:'Encapsulate state, side effects, subscriptions.'},
+{id:'re3',l:'Performance: memo, useMemo, useCallback, Profiler',n:'Measure before optimising.'},
+{id:'re4',l:'Concurrent features: Suspense & Transitions',n:'useTransition, useDeferredValue.'},
+{id:'re5',l:'TanStack Query: server state management',n:'Cache, invalidation, polling, optimistic updates.'}
+]},
+{t:'Next.js App Router',dot:'#534AB7',i:[
+{id:'nx1',l:'App Router vs Pages Router: core differences',n:'RSC by default, nested layouts.'},
+{id:'nx2',l:'React Server Components: when to use',n:'No client JS, direct DB access, streaming.'},
+{id:'nx3',l:'Server Actions: mutations without an API route',n:'Form submissions in Server Components.'},
+{id:'nx4',l:'Streaming with Suspense: progressive HTML',n:'Granular loading states.'},
+{id:'nx5',l:'Middleware: auth, i18n, A/B at the Edge',n:'Runs before every request.'},
+{id:'nx6',l:'Caching layers in Next.js 15',n:'Four caching layers. Understand each one.'}
+]},
+{t:'Advanced patterns',dot:'#1D9E75',i:[
+{id:'re6',l:'State management: Zustand vs Jotai vs Redux',n:'Zustand for simplicity. Redux for real complexity.'},
+{id:'re7',l:'Micro-frontends: Module Federation',n:'Independent teams shipping UI parts.'},
+{id:'re8',l:'Monorepo with Turborepo or Nx',n:'Shared packages, build cache.'},
+{id:'re9',l:'Core Web Vitals: LCP, CLS, INP',n:'Lighthouse, Sentry Performance.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'Next.js official docs — App Router',badge:null,f:true,n:'The best source for App Router patterns'},
+{name:'Jack Herrington — YouTube',badge:null,f:true,n:'Principal Engineer. Advanced React and Next.js code-along.'}
+]}]},
+{n:'13',t:'Front-End with Clean Architecture & Patterns',cat:'Front-End',
+pre:['React & Next.js','SOLID & Design Patterns','TDD'],rel:['DDD'],
+proj:{desc:'Rebuild the dashboard with explicit layers: Domain (pure business logic, zero React), Application (use cases), Infrastructure (HTTP + AI SDK adapter), Presentation (thin React views). Unit-test all use cases with manual mocks — no React involved.',stack:['React','TypeScript','Vitest','Testing Library','MSW']},
+ai:'LLM SDK is an Infrastructure adapter. Components never import the AI SDK directly.',
+secs:[
+{t:'Clean Architecture on the front-end',dot:'#185FA5',i:[
+{id:'fc1',l:'Domain layer: pure business logic, no React dependency',n:'Entities, value objects, use cases. Testable in Node.js.'},
+{id:'fc2',l:'Repository pattern for API calls',n:'Interface in domain, HTTP implementation in infrastructure.'},
+{id:'fc3',l:'Presenters: adapter between use case and component',n:'Transforms domain data for each component.'},
+{id:'fc4',l:'Dependency Injection via React Context',n:'Swap with mocks in tests.'}
+]},
+{t:'Patterns & Testing',dot:'#534AB7',i:[
+{id:'fc5',l:'Container / Presenter pattern',n:'Separate fetch logic from visual rendering.'},
+{id:'fc6',l:'Compound Components',n:'Declarative API for composed components.'},
+{id:'fc7',l:'Testing Library: test behaviour, not implementation',n:'Query by role and label.'},
+{id:'fc8',l:'MSW: mock APIs in front-end tests',n:'Intercepts HTTP. Integration tests without real backend.'},
+{id:'fc9',l:'Storybook: components in isolation',n:'Documents all visual states.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'Testing Library — official docs',badge:null,f:true,n:''},
+{name:'MSW — official docs',badge:null,f:true,n:''}
+]}]},
+{n:'14',t:'API Security, Auth & Secrets',cat:'Security',
+pre:['APIs REST','Docker','Node.js'],rel:['DevSecOps','Kubernetes'],
+proj:{desc:'A Node.js API where: all routes require a valid Keycloak JWT, RBAC controls admin endpoints, database credentials come from HashiCorp Vault, rate limiting enforced per user via Redis, all inputs validated with Zod, security headers set via Helmet.',stack:['Node.js','Keycloak','HashiCorp Vault','Redis','Zod','Helmet']},
+ai:'Prompt injection prevention. Rate limiting on LLM endpoints. Sanitise inputs before injecting into prompts.',
+secs:[
+{t:'Auth fundamentals',dot:'#E24B4A',i:[
+{id:'se1',l:'OWASP Top 10: the most common vulnerabilities',n:'Injection, broken auth, XSS, IDOR.'},
+{id:'se2',l:'JWT: structure, signing algorithms & best practices',n:'RS256 vs HS256. Short-lived access + refresh tokens.'},
+{id:'se3',l:'OAuth 2.0 & OpenID Connect',n:'Auth Code + PKCE flow. The modern auth standard.'},
+{id:'se4',l:'mTLS for service-to-service communication',n:'Zero-trust between microservices.'}
+]},
+{t:'Keycloak & Vault',dot:'#534AB7',i:[
+{id:'se5',l:'Keycloak: realms, clients, users & roles',n:'Open-source Identity Provider.'},
+{id:'se6',l:'SSO with Keycloak across multiple apps',n:'Single login for the entire platform.'},
+{id:'se7',l:'RBAC and ABAC: fine-grained access control',n:''},
+{id:'se8',l:'Vault: secrets management',n:'No secrets in environment variables. Vault rotates them.'},
+{id:'se9',l:'Dynamic database credentials via Vault',n:'Short-lived credentials on demand.'}
+]},
+{t:'API hardening',dot:'#BA7517',i:[
+{id:'se10',l:'Input validation & sanitisation with Zod',n:'Validate everything from outside.'},
+{id:'se11',l:'CORS: correct production configuration',n:'No wildcard in production.'},
+{id:'se12',l:'Security headers: CSP, HSTS, X-Frame-Options',n:'Helmet.js in Node.js.'},
+{id:'se13',l:'Rate limiting: algorithms and Redis implementation',n:'Per IP and per user.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'OWASP Top 10 — owasp.org',badge:null,f:true,n:''},
+{name:'Keycloak official docs',badge:null,f:true,n:''},
+{name:'HashiCorp Vault — learn.hashicorp.com',badge:null,f:true,n:'Free tutorials'}
+]}]},
+{n:'15',t:'DevOps: Kubernetes, CI/CD & IaC',cat:'DevOps',
+pre:['Docker & Containers','Linux CLI','Networking basics'],rel:['SRE & Observability','DevSecOps'],
+proj:{desc:'Deploy the two microservices from module 09 to a local Kubernetes cluster (kind or minikube). Write Helm charts. Configure HPA. GitHub Actions: test → build → push to GHCR → ArgoCD syncs. Use Terraform to provision AWS EKS.',stack:['Kubernetes','Helm','GitHub Actions','ArgoCD','Terraform','AWS EKS']},
+ai:'Kubernetes for AI model serving. GPU node pools for inference. HPA scaling based on request queue depth.',
+secs:[
+{t:'Kubernetes fundamentals',dot:'#3B6D11',i:[
+{id:'k1',l:'Architecture: control plane & worker nodes',n:'API Server, etcd, scheduler, kubelet, kube-proxy.'},
+{id:'k2',l:'Core objects: Pod, Deployment, Service, Ingress',n:'The building blocks.'},
+{id:'k3',l:'ConfigMaps & Secrets',n:'Separate configuration from code.'},
+{id:'k4',l:'Namespaces & RBAC',n:'Resource isolation. Fine-grained permissions.'},
+{id:'k5',l:'Persistent Volumes & StatefulSets',n:'For stateful apps and databases in the cluster.'}
+]},
+{t:'Kubernetes advanced',dot:'#534AB7',i:[
+{id:'k6',l:'HPA & VPA: horizontal & vertical autoscaling',n:'Scale on CPU, memory, or custom metrics.'},
+{id:'k7',l:'Helm: Kubernetes package management',n:'Charts as reusable, versioned templates.'},
+{id:'k8',l:'Probes: liveness, readiness & startup',n:'Kubernetes knows when to restart and when to send traffic.'},
+{id:'k9',l:'Network Policies: pod-level firewall',n:'Zero-trust inside the cluster.'}
+]},
+{t:'CI/CD',dot:'#1D9E75',i:[
+{id:'ci1',l:'GitHub Actions: workflows, jobs & steps',n:'Pipeline as code. Triggers, artefacts, caching.'},
+{id:'ci2',l:'Deploy strategies: blue-green, canary, rolling',n:'Zero-downtime deployments.'},
+{id:'ci3',l:'GitOps with ArgoCD or Flux',n:'Git as the source of truth for cluster state.'}
+]},
+{t:'Infrastructure as Code',dot:'#BA7517',i:[
+{id:'iac1',l:'Terraform: provision infrastructure on any cloud',n:'HCL, state, modules. AWS provider.'},
+{id:'iac2',l:'Pulumi: IaC with TypeScript',n:'Terraform alternative using real languages.'},
+{id:'iac3',l:'Ansible: server configuration & automation',n:'Playbooks, roles, inventory.'}
+]}
+],
+resources:[{cat:'Udemy — Ed Donner: Production Track (wishlist)',items:[
+{name:'AI Engineer Production Track: Deploy LLMs & Agents at Scale',badge:'ai',f:false,n:'Covers AWS, Vercel, GitHub Actions, Terraform for AI apps. Highly relevant to this module.'}
+]},{cat:'Free',items:[
+{name:'TechWorld with Nana — Kubernetes (YouTube)',badge:null,f:true,n:'Best free K8s course. Code-along.'},
+{name:'AWS Skill Builder — Cloud Practitioner path',badge:null,f:true,n:'Free. Covers all AWS services needed.'},
+{name:'Anton Putra — DevOps & Terraform (YouTube)',badge:null,f:true,n:'High quality IaC tutorials'}
+]}]},
+{n:'16',t:'SRE, Monitoring & Observability',cat:'DevOps',
+pre:['Docker & Kubernetes','APIs REST','SQL'],rel:['DevSecOps','Microservices'],
+proj:{desc:'Instrument the content analysis platform (module 11) with OpenTelemetry. Export traces to Jaeger, metrics to Prometheus, logs to Loki. Build a Grafana dashboard. Alert if LLM latency exceeds 5s.',stack:['OpenTelemetry','Prometheus','Grafana','Loki','Jaeger','Langfuse']},
+ai:'LLM latency traces, cost per request, hallucination rate, token usage dashboards via Langfuse.',
+secs:[
+{t:'The three pillars',dot:'#3B6D11',i:[
+{id:'ob1',l:'Structured logs: JSON, levels & correlation IDs',n:'Correlation ID flows through every service.'},
+{id:'ob2',l:'Metrics: RED method (Rate, Errors, Duration)',n:'And USE (Utilization, Saturation, Errors) for resources.'},
+{id:'ob3',l:'Distributed tracing with OpenTelemetry',n:'Trace IDs across microservices. The standard.'}
+]},
+{t:'Observability stack',dot:'#534AB7',i:[
+{id:'ob4',l:'Prometheus: metrics collection & storage',n:'Pull-based, PromQL, AlertManager.'},
+{id:'ob5',l:'Grafana: dashboards & visualisation',n:'Connects to Prometheus, Loki, Tempo.'},
+{id:'ob6',l:'Loki: logs at Prometheus scale',n:'LogQL. Part of the Grafana LGTM stack.'},
+{id:'ob7',l:'Jaeger or Tempo: distributed traces',n:'Visualise where latency lives.'},
+{id:'ob8',l:'OpenTelemetry SDK: auto-instrumentation',n:'Auto-instruments Node.js and Go.'}
+]},
+{t:'SRE in practice',dot:'#1D9E75',i:[
+{id:'sr1',l:'SLI, SLO & SLA: defining reliability',n:'Error budgets.'},
+{id:'sr2',l:'Error budgets: how much downtime you can spend',n:'Stop shipping features when exhausted.'},
+{id:'sr3',l:'Incident response: runbooks & blameless post-mortems',n:''},
+{id:'sr4',l:'Chaos Engineering basics',n:'Intentionally inject failure.'}
+]}
+],
+resources:[{cat:'Udemy — Ed Donner: Production Track (wishlist)',items:[
+{name:'AI Engineer Production Track — observability sections',badge:'ai',f:false,n:'Covers AI-specific monitoring on AWS. Relevant to the LLM observability part.'}
+]},{cat:'Free',items:[
+{name:'Grafana — getting started docs',badge:null,f:true,n:''},
+{name:'OpenTelemetry — official docs',badge:null,f:true,n:'Auto-instrumentation guides for Node.js'}
+]}]},
+{n:'17',t:'DevSecOps',cat:'DevOps',
+pre:['Docker & Kubernetes','CI/CD','API Security'],rel:['SRE','Vault'],
+proj:{desc:'Add a security layer to GitHub Actions: Semgrep (SAST), Trivy (container scanning), Snyk (dependencies), TruffleHog (secrets), OWASP ZAP (DAST), Sigstore/Cosign (image signing). All findings as PR comments.',stack:['GitHub Actions','Semgrep','Trivy','Snyk','OWASP ZAP','Sigstore','OPA']},
+ai:'SAST on code that calls LLMs. Detect prompt injection patterns in static analysis.',
+secs:[
+{t:'Security in the pipeline',dot:'#E24B4A',i:[
+{id:'ds1',l:'SAST: static analysis (SonarQube, Semgrep)',n:'Finds vulnerabilities before code ships.'},
+{id:'ds2',l:'DAST: dynamic testing at runtime (OWASP ZAP)',n:'Attacks the running application.'},
+{id:'ds3',l:'Dependency scanning: Snyk, Dependabot',n:'Vulnerabilities in third-party packages.'},
+{id:'ds4',l:'Container scanning: Trivy, Grype',n:'Scan images before pushing to registry.'},
+{id:'ds5',l:'Secret scanning: TruffleHog, git-secrets',n:'Detects accidentally committed secrets.'}
+]},
+{t:'Supply chain & runtime',dot:'#534AB7',i:[
+{id:'ds6',l:'SBOM: Software Bill of Materials',n:'Full inventory of your application. Syft to generate.'},
+{id:'ds7',l:'Sigstore & Cosign: sign and verify artefacts',n:'Cryptographically sign Docker images.'},
+{id:'ds8',l:'Policy as Code with OPA/Gatekeeper',n:'Security rules as Rego code.'},
+{id:'ds9',l:'Falco: anomaly detection at runtime',n:'Monitors syscalls. Alerts on suspicious container behaviour.'},
+{id:'ds10',l:'Pod Security Standards: no root, no privileged',n:'Enforce least-privilege at the pod level.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'OWASP — owasp.org',badge:null,f:true,n:''},
+{name:'Trivy — aquasecurity.github.io/trivy',badge:null,f:true,n:''},
+{name:'Snyk — free tier',badge:null,f:true,n:'Free for open source projects'}
+]}]},
+{n:'18',t:'UX & UI Design for Developers',cat:'Bonus',
+pre:[],rel:['React & Next.js','Accessibility'],
+proj:{desc:'In Figma, design 10 components using auto layout and colour tokens. Implement them in React + Tailwind using Radix UI primitives. Write Storybook stories for every state. Achieve WCAG AA on every component.',stack:['Figma','React','Radix UI','Tailwind','Storybook','axe']},
+ai:'Streaming UI patterns, LLM loading states, chat UI design, trust and transparency in AI outputs.',
+secs:[
+{t:'UX fundamentals',dot:'#888780',i:[
+{id:'ux1',l:'User research basics: interviews & Jobs to be Done',n:'Know the user before designing.'},
+{id:'ux2',l:"Nielsen's 10 usability heuristics",n:'Ten principles every dev should apply.'},
+{id:'ux3',l:'Cognitive load: chunking & progressive disclosure',n:'Reduce mental effort.'},
+{id:'ux4',l:'UX patterns for AI products',n:'Streaming UI, LLM error states, source attribution.'}
+]},
+{t:'UI & Design Systems',dot:'#534AB7',i:[
+{id:'ui1',l:'Grid, spacing & vertical rhythm — 8px grid',n:"Visual consistency without a designer's eye."},
+{id:'ui2',l:'Typography: hierarchy & readability',n:'Type scale, weight, line-height.'},
+{id:'ui3',l:'Colour theory: palettes & WCAG contrast',n:'HSL, complementary, contrast ratios.'},
+{id:'ui4',l:'Figma: components, auto layout & variables',n:'Industry standard. You do not need to be a designer.'},
+{id:'ui5',l:'Design tokens: bridge between design and code',n:'Style Dictionary.'},
+{id:'ui6',l:'Atomic Design + Radix UI + Tailwind',n:'Accessible primitives, Tailwind styling, Shadcn/ui pattern.'},
+{id:'ui7',l:'Storybook: components in isolation',n:'Documents all visual states. Living design system.'},
+{id:'ui8',l:'Accessibility: WCAG 2.1 AA & ARIA',n:'Screen readers, keyboard navigation.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'Figma — free tier',badge:null,f:true,n:''},
+{name:'Radix UI — radix-ui.com',badge:null,f:true,n:''},
+{name:'Shadcn/ui — ui.shadcn.com',badge:null,f:true,n:'Open source component library built on Radix + Tailwind'}
+]}]},
+{n:'19',t:'Soft Skills & The Future Dev with AI',cat:'Bonus',
+pre:[],rel:['Architecture','Technical Leadership'],
+proj:{desc:'Pick any meaningful technical decision from a previous module and write a formal ADR: context, decision, status, consequences, alternatives considered. Publish it as a GitHub Gist or blog post.',stack:['Writing','ADR','GitHub','Markdown']},
+ai:'Using AI as a force multiplier: delegate routine work, focus on judgement, strategy and context.',
+secs:[
+{t:'Technical communication',dot:'#888780',i:[
+{id:'ss1',l:'ADRs, READMEs, RFCs: documentation people read',n:'Write for the future reader.'},
+{id:'ss2',l:'Presenting technical decisions to non-technical stakeholders',n:'Trade-offs in business language.'},
+{id:'ss3',l:'Code review: giving and receiving feedback',n:'Critique the code, not the person.'}
+]},
+{t:'Technical leadership',dot:'#534AB7',i:[
+{id:'ss4',l:'Tech Lead vs Engineering Manager',n:'Tech Lead keeps hands on the code.'},
+{id:'ss5',l:'Technical estimation & planning',n:'Story points, T-shirt sizing. Why estimates are wrong.'},
+{id:'ss6',l:'Agile in practice: Scrum & Kanban',n:'Rituals, workflow, adapting for real teams.'}
+]},
+{t:'AI-augmented developer',dot:'#EF9F27',i:[
+{id:'ss7',l:'AI as a force multiplier: delegate routine, focus on strategy',n:'Boilerplate, tests, docs go to AI. Architecture decisions stay with you.'},
+{id:'ss8',l:'Critically reviewing AI-generated code',n:'AI makes architectural mistakes that pass tests. Always review.'},
+{id:'ss9',l:'Vibe coding vs intentional engineering',n:'When to explore (AI-led) vs when to be rigorous (production).'},
+{id:'ss10',l:'T-shaped skills: deep in 1-2, broad in many',n:'Specialisation + versatility.'},
+{id:'ss11',l:'Building in public: blog, GitHub, talks',n:'Reputation as a career asset.'},
+{id:'ss12',l:'Human-Centred AI Engineering: the long-term niche',n:'Technical depth + human impact of algorithms. Rare and valued.'}
+]}
+],
+resources:[{cat:'Free',items:[
+{name:'AI Sydney & Machine Learning Sydney — meetup.com',badge:null,f:true,n:'Network in the Australian AI community'},
+{name:'Seek.com.au + Otta.com',badge:null,f:true,n:'Australian job market — set up alerts'}
+]}]}
+];
+
+function cntI(m){return m.secs.reduce((t,s)=>t+s.i.length,0)}
+function cntD(m){return m.secs.flatMap(s=>s.i).filter(x=>ck[x.id]).length}
+function toggleI(id,el){ck[id]=!ck[id];save();el.classList.toggle('done',!!ck[id]);el.querySelector('.cb').textContent=ck[id]?'✓':'';updAll();}
+function updAll(){
+  let tot=0,don=0;
+  M.forEach((m,i)=>{
+    const t=cntI(m),d=cntD(m);tot+=t;don+=d;
+    const pct=t?Math.round(d/t*100):0;
+    const pf=document.getElementById('pf'+i),pl=document.getElementById('pl'+i);
+    if(pf){pf.style.width=pct+'%';pf.style.background=m.m0?'#1D9E75':(COL[m.cat]||'#534AB7');}
+    if(pl)pl.textContent=d+'/'+t;
+  });
+  const op=tot?Math.round(don/tot*100):0;
+  document.getElementById('ov-f').style.width=op+'%';
+  document.getElementById('ov-l').textContent=don+' of '+tot+' items complete';
+  document.getElementById('ov-p').textContent=op+'%';
+}
+let activeF='All';
+function setFilter(c){
+  activeF=c;
+  document.querySelectorAll('.fil').forEach(b=>b.classList.toggle('on',b.dataset.c===c));
+  document.querySelectorAll('.mod').forEach(el=>el.style.display=(c==='All'||el.dataset.cat===c)?'':'none');
+}
+const filEl=document.getElementById('fil');
+CATS.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='fil'+(c==='All'?' on':'');
+  b.dataset.c=c;b.textContent=c;
+  b.onclick=()=>setFilter(c);
+  filEl.appendChild(b);
+});
+const BADGE_MAP={rs:'cb-rs',ud:'cb-ud',ai:'cb-ai'};
+function buildRes(m){
+  if(!m.resources)return '';
+  let h='';
+  m.resources.forEach(rc=>{
+    h+=`<div class="res-block"><h4>${rc.cat}</h4>`;
+    rc.items.forEach(r=>{
+      const badgeCls=r.badge?BADGE_MAP[r.badge]:'';
+      const badgeEl=r.badge?`<span class="course-badge ${badgeCls}">${r.badge==='rs'?'Rocketseat':r.badge==='ud'?'Udemy':'Ed Donner AI'}</span>`:'';
+      h+=`<div class="res-row"><span class="res-name">${r.name}${badgeEl}${r.n?` <span class="res-sub">(${r.n})</span>`:''}</span><span class="${r.f?'free':'paid'}">${r.f?'free':'paid'}</span></div>`;
+    });
+    h+='</div>';
+  });
+  return h;
+}
+const modEl=document.getElementById('mods');
+M.forEach((m,i)=>{
+  const tot=cntI(m),don=cntD(m),pct=tot?Math.round(don/tot*100):0;
+  const cc=m.m0?'c-pre':(CC[m.cat]||'c-bon');
+  const col=m.m0?'#1D9E75':(COL[m.cat]||'#888780');
+  let preH=m.pre.map(p=>`<span class="chip-pre">${p}</span>`).join('');
+  let relH=m.rel.map(r=>`<span class="chip-rel">${r}</span>`).join('');
+  let depH='';
+  if(m.pre.length||m.rel.length){
+    depH='<div class="dep-row">';
+    if(m.pre.length)depH+=`<span class="dlbl">Requires</span>${preH}`;
+    if(m.pre.length&&m.rel.length)depH+='<span style="margin:0 4px;color:#b4b2a9">·</span>';
+    if(m.rel.length)depH+=`<span class="dlbl">Related</span>${relH}`;
+    depH+='</div>';
+  }
+  let aiH='';
+  if(m.ai&&m.cat!=='AI')aiH=`<div class="ai-row"><span>AI connection</span><p>${m.ai}</p></div>`;
+  const projH=m.proj?`<div class="proj-box"><h4>Practice project</h4><p>${m.proj.desc}</p><div class="proj-stack">${m.proj.stack.map(s=>`<span class="stag">${s}</span>`).join('')}</div></div>`:'';
+  let secH='';
+  m.secs.forEach(s=>{
+    secH+=`<div class="sec"><div class="stitle"><span class="sdot" style="background:${s.dot||'#888'}"></span>${s.t}</div>`;
+    s.i.forEach(it=>{
+      const d=!!ck[it.id];
+      secH+=`<div class="item${d?' done':''}" id="it-${it.id}" onclick="toggleI('${it.id}',this)"><div class="cb">${d?'✓':''}</div><div><div class="ilbl">${it.l}</div>${it.n?`<div class="inote">${it.n}</div>`:''}</div></div>`;
+    });
+    secH+='</div>';
+  });
+  const div=document.createElement('div');
+  div.className='mod'+(m.m0?' m0':'');
+  div.dataset.cat=m.cat;
+  div.innerHTML=`
+    <div class="mhd" onclick="this.parentElement.classList.toggle('open')">
+      <span class="mnum">${m.n}</span>
+      <span class="mtitle">${m.t}</span>
+      <span class="mcat ${cc}">${m.cat}</span>
+      <span class="mprg"><span id="pl${i}">${don}/${tot}</span></span>
+      <span class="marr">▾</span>
+    </div>
+    <div class="mbody">
+      ${depH}${aiH}
+      <div class="pbar"><div class="pfill" id="pf${i}" style="width:${pct}%;background:${col}"></div></div>
+      ${projH}${secH}
+      ${buildRes(m)}
+    </div>`;
+  modEl.appendChild(div);
+});
+updAll();
+</script>
+</body>
+</html>
